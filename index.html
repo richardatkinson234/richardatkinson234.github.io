@@ -85,21 +85,67 @@ footer{background:#0a1b2e;color:#8fa1b4;text-align:center;padding:22px;font-size
  nav.open{display:block}nav ul{flex-direction:column;padding:10px 20px}
  .edu{grid-template-columns:64px 1fr}
 }
+
+/* ===== MENU PREVIEW STYLES (each gated by a body class) ===== */
+nav li{position:relative}
+.mega{display:none}
+.v1 header.nav{transition:height .25s,background .25s,transform .3s}
+.v1 nav>ul>li>a{position:relative}
+.v1 nav>ul>li>a::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.v1 nav>ul>li>a.active::after{transform:scaleX(1)}
+.v1 nav a.active{background:transparent;color:#fff}
+.v1 header.nav.shrunk .wrap{height:50px}
+.v1 header.nav.shrunk{box-shadow:0 4px 18px rgba(0,0,0,.25)}
+/* 2 mega */
+@media(min-width:821px){
+ .v2 .mega{display:block;position:absolute;top:100%;left:0;min-width:300px;background:#fff;border-radius:10px;box-shadow:0 18px 40px rgba(15,39,66,.28);padding:8px;opacity:0;visibility:hidden;transform:translateY(10px);transition:all .22s;border-top:3px solid var(--gold)}
+ .v2 .mega.r{left:auto;right:0}
+ .v2 li:hover>.mega,.v2 li:focus-within>.mega{opacity:1;visibility:visible;transform:none}
+ .v2 .mega a{color:var(--ink);padding:10px 12px;border-radius:8px}
+ .v2 .mega a:hover{background:#eef3f7}
+ .v2 .mega b{display:block;font-size:.92rem;color:var(--navy)}
+ .v2 .mega small{display:block;font-size:.78rem;color:var(--muted)}
+ .v2 li:hover>a:first-child{background:rgba(255,255,255,.12);color:#fff}
+}
+/* 5 progress + top */
+#prog{display:none;position:fixed;top:60px;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--teal),var(--gold));z-index:51;transition:top .3s}
+.v5 #prog{display:block}
+.v5.shrunkpad #prog{top:50px}
+#totop{display:none;position:fixed;right:20px;bottom:20px;width:46px;height:46px;border-radius:50%;border:0;background:var(--gold);color:#fff;font-size:1.3rem;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.3);z-index:60;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;transform:translateY(10px)}
+.v5 #totop{display:block}
+.v5 #totop.show{opacity:1;pointer-events:auto;transform:none}
+/* 4 animated mobile menu */
+@media(max-width:820px){
+ .v4 .burger{position:relative;z-index:80}
+ .v4 nav{display:block;position:fixed;top:0;left:0;right:0;bottom:0;height:100vh;background:linear-gradient(160deg,var(--navy),#0a1b2e);transform:translateX(100%);transition:transform .45s cubic-bezier(.7,0,.2,1);padding-top:80px;z-index:70;overflow:auto}
+ .v4 nav.open{transform:none}
+ .v4 nav ul{padding:10px 32px}
+ .v4 nav>ul>li>a{font-family:Georgia,serif;font-size:1.6rem;padding:12px 0;color:#fff;border-bottom:1px solid rgba(255,255,255,.1);border-radius:0}
+ .v4 nav li{opacity:0;transform:translateX(30px);transition:all .4s}
+ .v4 nav.open li{opacity:1;transform:none}
+ .v4 nav.open li:nth-child(1){transition-delay:.15s}.v4 nav.open li:nth-child(2){transition-delay:.2s}.v4 nav.open li:nth-child(3){transition-delay:.25s}.v4 nav.open li:nth-child(4){transition-delay:.3s}.v4 nav.open li:nth-child(5){transition-delay:.35s}.v4 nav.open li:nth-child(6){transition-delay:.4s}.v4 nav.open li:nth-child(7){transition-delay:.45s}
+ .v4 nav a.active{background:transparent;color:var(--gold)}
+ .v4 header.nav{z-index:90}
+}
 </style>
 </head>
-<body>
+<body class="v1 v2 v4 v5">
 
 <header class="nav">
  <div class="wrap">
   <a class="brand" href="#home">Richard <span>Atkinson</span></a>
-  <button class="burger" aria-label="Open menu" onclick="document.getElementById('menu').classList.toggle('open')">&#9776;</button>
+  <button class="burger" aria-label="Open menu" onclick="toggleMenu()">&#9776;</button>
   <nav id="menu">
    <ul>
     <li><a href="#about">About</a></li>
-    <li><a href="#career">Recent Career</a></li>
-    <li><a href="#earlier">Earlier Career</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#skills">Skills</a></li>
+    <li><a href="#career">Recent Career</a>
+     <div class="mega"><a href="#job-2025"><b>Head of Technical Accounting</b><small>2025 &ndash; Oct 2026</small></a><a href="#job-2020"><b>Group Finance Manager</b><small>2020 &ndash; 2024</small></a><a href="#job-2017"><b>Finance Manager / Regional Controller</b><small>2017 &ndash; 2019</small></a></div></li>
+    <li><a href="#earlier">Earlier Career</a>
+     <div class="mega"><a href="#job-2015"><b>Steris</b><small>Accounting &amp; Finance Manager, 2015 &ndash; 2017</small></a><a href="#job-2011"><b>Global Payments Inc.</b><small>Financial Accountant, 2011 &ndash; 2015</small></a></div></li>
+    <li><a href="#education">Education</a>
+     <div class="mega r"><a href="#education"><b>Qualifications</b><small>FCCA, IFRS Diploma, Valuations</small></a><a href="#education"><b>BA (Hons) Economics &amp; Law</b><small>2:1, ERASMUS in Valencia</small></a></div></li>
+    <li><a href="#skills">Skills</a>
+     <div class="mega r"><a href="#skills"><b>Technology &amp; applications</b><small>Excel, Power Query, Sage, Oracle</small></a><a href="#skills"><b>Core finance expertise</b><small>IFRS, Board reporting, FP&amp;A</small></a><a href="#skills"><b>Languages</b><small>English, Spanish</small></a></div></li>
     <li><a href="#interests">Interests</a></li>
     <li><a href="#contact">Contact</a></li>
    </ul>
@@ -153,7 +199,7 @@ footer{background:#0a1b2e;color:#8fa1b4;text-align:center;padding:22px;font-size
   <p class="lead" style="margin-bottom:28px">Education sector &middot; Malta (St Julian&rsquo;s) &middot; annual gross revenue c.&euro;100m &middot; oversight of twelve companies in Malta, South Africa and Dubai &middot; reporting to the CFO and working closely with all C-suite colleagues.</p>
   <div class="timeline">
 
-   <div class="job">
+   <div class="job" id="job-2025">
     <div class="when">2025 &ndash; OCT 2026</div>
     <h3>Head of Technical Accounting</h3>
     <div class="org">EC English Language Centres</div>
@@ -162,7 +208,7 @@ footer{background:#0a1b2e;color:#8fa1b4;text-align:center;padding:22px;font-size
     </ul>
    </div>
 
-   <div class="job">
+   <div class="job" id="job-2020">
     <div class="when">2020 &ndash; 2024</div>
     <h3>Group Finance Manager</h3>
     <div class="org">EC English Language Centres</div>
@@ -171,7 +217,7 @@ footer{background:#0a1b2e;color:#8fa1b4;text-align:center;padding:22px;font-size
     </ul>
    </div>
 
-   <div class="job">
+   <div class="job" id="job-2017">
     <div class="when">2017 &ndash; 2019</div>
     <h3>Finance Manager / Regional Controller</h3>
     <div class="org">EC English Language Centres &middot; 4&ndash;6 direct reports</div>
@@ -200,7 +246,7 @@ footer{background:#0a1b2e;color:#8fa1b4;text-align:center;padding:22px;font-size
   <div class="rule"></div>
   <div class="timeline">
 
-   <div class="job">
+   <div class="job" id="job-2015">
     <div class="when">2015 &ndash; 2017</div>
     <h3>Accounting and Finance Manager</h3>
     <div class="org">Steris &middot; Manufacturer of medical supplies &middot; NYSE listed &middot; 3 divisions in UK and Ireland &middot; 4&ndash;5 reports</div>
@@ -213,7 +259,7 @@ footer{background:#0a1b2e;color:#8fa1b4;text-align:center;padding:22px;font-size
     </ul>
    </div>
 
-   <div class="job">
+   <div class="job" id="job-2011">
     <div class="when">2011 &ndash; 2015</div>
     <h3>Financial Accountant &middot; Assistant Accountant</h3>
     <div class="org">Global Payments Inc. &middot; Payment processing &middot; US listed, Fortune 1000 &middot; 4 divisions in UK, Ireland, Spain and Malta</div>
@@ -301,13 +347,28 @@ footer{background:#0a1b2e;color:#8fa1b4;text-align:center;padding:22px;font-size
 
 <footer>&copy; <span id="yr">2026</span> Richard Atkinson FCCA &middot; Malta</footer>
 
+
+<div id="prog"></div>
+<button id="totop" aria-label="Back to top" onclick="scrollTo({top:0,behavior:'smooth'})">&uarr;</button>
 <script>
 document.getElementById('yr').textContent=new Date().getFullYear();
-const links=[...document.querySelectorAll('nav a')];
+const links=[...document.querySelectorAll('nav > ul > li > a')];
 const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
-links.forEach(a=>a.addEventListener('click',()=>document.getElementById('menu').classList.remove('open')));
+document.querySelectorAll('nav a').forEach(a=>a.addEventListener('click',()=>closeMenu()));
 function spy(){let y=window.scrollY+100,cur=-1;secs.forEach((s,i)=>{if(s.offsetTop<=y)cur=i});links.forEach((a,i)=>a.classList.toggle('active',i===cur))}
 addEventListener('scroll',spy,{passive:true});spy();
+
+function toggleMenu(){const n=document.getElementById('menu');n.classList.toggle('open');document.querySelector('.burger').innerHTML=n.classList.contains('open')?'&#10005;':'&#9776;'}
+function closeMenu(){document.getElementById('menu').classList.remove('open');document.querySelector('.burger').innerHTML='&#9776;'}
+const hd=document.querySelector('header.nav'),prog=document.getElementById('prog'),tt=document.getElementById('totop');
+function onScroll(){
+ const y=scrollY,max=document.documentElement.scrollHeight-innerHeight;
+ hd.classList.toggle('shrunk',y>40);
+ document.body.classList.toggle('shrunkpad',y>40&&document.body.classList.contains('v1'));
+ prog.style.width=(max>0?y/max*100:0)+'%';
+ tt.classList.toggle('show',y>500);
+}
+addEventListener('scroll',onScroll,{passive:true});onScroll();
 </script>
 </body>
 </html>
